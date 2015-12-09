@@ -1,20 +1,16 @@
-function fourBarLinkage()
-% fourBarDerive();
+function fourBarLinkage(t0, td0, p)
+% fourBarDerive(); % Was used to write function fourBarRHS()
 n=3; p.n=n;
 % set constant values (m's, l's, etc. to EOM)
-p.m = rand(n,1); p.l = ones(n,1)+rand(n,1); 
 p.d = .5*ones(n,1); p.Ig = ones(n,1); p.g=10;
 % initial conditions are important
 % solve the ODE
-options = odeset('relTol',1e-9,'AbsTol',1e-9);
-tspan = linspace(0,7,700);
-%t0 = [0 + pi/2 - pi/12; pi/2; pi + pi/2 - pi/12]; 
-t0 = 3.5*rand(n,1)+[.5;1;-3/2];
-td0 = zeros(3,1);
+options = odeset('relTol',1e-6,'AbsTol',1e-6);
+tspan = linspace(0,5,500);
 z0 = [t0; td0];
 [tout,zout] = ode45(@(t,y)fourBarRHS(t,y,p), tspan, z0, options);
 plotStuff(tout,zout,3,p.l);
-totalE = energy(tout, zout, p);
+totalE = energy(tout, zout, p, 'Four Bar Linkage');
 
 function zdot = fourBarRHS(t,z,p)
 % unpack
@@ -82,6 +78,7 @@ plot(y,-x,'x-k');
 % plot trajectories of ends of 1st and second bars
 plot(squeeze(rL(2,1,:)), squeeze(-rL(1,1,:)),'b');
 plot(squeeze(rL(2,2,:)), squeeze(-rL(1,2,:)),'m');
+plot(squeeze(rL(2,3,:)), squeeze(-rL(1,n,:)),'g');
  
 function fourBarDerive()
 % NOTE: copied from newton_pendulum_derive

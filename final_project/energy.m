@@ -1,4 +1,4 @@
-function totalE = energy(time, z, p)
+function totalE = energy(time, z, p, str)
 %this funciton calculates the energy
 
 % unpack stuff
@@ -53,15 +53,16 @@ end
 totalE = KE + PE;
 
 %% plot energy
+titleStr = sprintf('Energy as a function of time, %s',str);
 figure(); hold on;
-title('Energy as a function of time');
+title(titleStr);
 plot(time,KE);
 plot(time,PE);
 plot(time, totalE);
 legend('KE','PE','total');
 
 figure(); hold on;
-title('Energy as a function of time');
+title(titleStr);
 plot(time, totalE);
 legend('total');
 

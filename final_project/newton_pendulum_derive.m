@@ -40,8 +40,6 @@ for i=2:n % for each subsequent bar
     rG(1:3,i) = rL(1:3,i-1) + d(i)*er(:,i);
 end
 
-
-% could require checking over
 % construct acceleration vectors
 % contribution from each bar above the bar of interest
 a = sym(zeros(3,n));
@@ -54,19 +52,6 @@ end
 for i = 1:n
     a(1:3,i) = a(1:3,i) + (d(i)*tdd(i)*et(:,i) - d(i)*(td(i)^2)*er(:,i));
 end
-
-% now that all variables are defined
-% do n angular momentum balances
-% M = sym(zeros(n,1));
-% Hd = sym(zeros(n,1));
-% for i = n:-1:1
-%     for j = 1:i
-%         temp1 = cross(d(i)*er(:,i),(m(i)*g*ei));
-%         M(j) = M(j) + temp1(3);
-%         temp2 = m(i)*cross(d(i)*er(:,i),a(:,i)) + Ig(i)*tdd(i)*ek;
-%         Hd(j) = Hd(j) + temp2(3); % take 3rd component instead of dot product with k
-%     end
-% end
 
 % n AMB's
 for i = 1:n
@@ -87,5 +72,3 @@ for i = 1:n
 end
 
 [A,b] = equationsToMatrix(AMB,tdd);
-%A = simplify(A); b=simplify(b);
-%tdd = A\b;

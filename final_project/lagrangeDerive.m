@@ -69,16 +69,5 @@ L = E_k - E_p;
 % sources: I adapted the following beautiful lines from Ruina's demo in class
 EoM = jacobian(jacobian(L,td)',[t td])*[td tdd]' - jacobian(L, t')';
 
-% % debugging 
-% q = t;  qdot = td;  qddot = tdd;
-% % this part stays the same for all equations
-% Etot = E_k - E_p;
-% Lx = jacobian(Etot,q)';
-% Lv = jacobian(Etot,qdot);
-% ddt = jacobian(Lv,q)*qdot'+jacobian(Lv,qdot)*qddot';
-% Lag = ddt - Lx;
-% [A2,b2] = equationsToMatrix(Lag', qddot);
-% tdd_lag = A2\b2;
 
 [A,b] = equationsToMatrix(EoM, tdd);
-%rhs = A\b;
